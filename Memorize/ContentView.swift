@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🚅", "🚂", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚤", "🛥️", "🛳️", "⛴️", "🚢", "🚃", "🚄", "🚆", "🚇", "🚈", "🚝", "🚞", "🚋", "🏍", "🛵", "🛺", "🚲", "🛴"]
-    @State var emojiCount = 20
+    let vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🚅", "🚂", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚤", "🛥️", "🛳️", "⛴️", "🚢", "🚃", "🚄", "🚆", "🚇", "🚈", "🚝", "🚞", "🚋", "🏍", "🛵", "🛺", "🚲", "🛴"]
+    let healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
+    let fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
+    
+    @State var emojis: [String] = []
     
     var body: some View {
         VStack {
+            Text("Memorize!")
+                .font(.largeTitle)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0 ..< emojiCount], id: \.self) { emoji in
+                    ForEach(emojis[0..<emojis.count], id: \.self) { emoji in
                         CardView(emoji: emoji)
                             .aspectRatio(2/3, contentMode: .fit)
                     }
@@ -24,38 +29,69 @@ struct ContentView: View {
             .foregroundColor(.red)
             Spacer()
             HStack {
-                addButton
+                vehicles
                 Spacer()
-                Text("Shuffle")
+                fastFood
                 Spacer()
-                removeButton
+                healthyFood
             }
-            .font(.largeTitle)
-            .padding(.vertical)
+        }
+        .onAppear {
+            if emojis.isEmpty {
+                initVehicles()
+            }
         }
         .padding(.horizontal)
     }
     
-    var addButton: some View {
-        Button(action: {
-            emojiCount += 1
-        }, label: {
-            Image(systemName: "plus.circle")
-        })
+    var vehicles: some View {
+        VStack {
+            Button(action: {
+                initVehicles()
+            }, label: {
+                Text("🚗")
+            })
+            Text("Vehicles")
+        }
     }
     
-    var removeButton: some View {
-        Button(action: {
-            emojiCount -= 1
-        }, label: {
-            Image(systemName: "minus.circle")
-        })
+    var healthyFood: some View {
+        VStack {
+            Button(action: {
+                initHealthyFood()
+            }, label: {
+                Text("🍲")
+            })
+            Text("Healthy food")
+        }
+    }
+    
+    var fastFood: some View {
+        VStack {
+            Button(action: {
+                initFastFood()
+            }, label: {
+                Text("🍔")
+            })
+            Text("Fast food")
+        }
+    }
+    
+    func initVehicles() {
+        emojis = vehicleEmojis.shuffled()
+    }
+    
+    func initHealthyFood() {
+        emojis = healthyFoodEmojis.shuffled()
+    }
+    
+    func initFastFood() {
+        emojis = fastFoodEmojis.shuffled()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
     }
 }
