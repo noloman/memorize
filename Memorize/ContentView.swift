@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🚅", "🚂", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚤", "🛥️", "🛳️", "⛴️", "🚢", "🚃", "🚄", "🚆", "🚇", "🚈", "🚝", "🚞", "🚋", "🏍", "🛵", "🛺", "🚲", "🛴"]
-    let healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
-    let fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
-    
-    @State var emojis: [String] = []
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         VStack {
@@ -20,9 +16,12 @@ struct ContentView: View {
                 .font(.largeTitle)
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-                    ForEach(emojis[0..<emojis.count], id: \.self) { emoji in
-                        CardView(emoji: emoji)
+                    ForEach(viewModel.cards[0..<viewModel.cards.count]) { card in
+                        CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
+                            .onTapGesture {
+                                viewModel.choose(card)
+                            }
                     }
                 }
             }
@@ -37,8 +36,8 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            if emojis.isEmpty {
-                initVehicles()
+            if viewModel.cards.isEmpty {
+                viewModel.initNewCollection(.vehicles)
             }
         }
         .padding(.horizontal)
@@ -47,7 +46,7 @@ struct ContentView: View {
     var vehicles: some View {
         VStack {
             Button(action: {
-                initVehicles()
+                viewModel.initNewCollection(.vehicles)
             }, label: {
                 Text("🚗")
             })
@@ -58,7 +57,7 @@ struct ContentView: View {
     var healthyFood: some View {
         VStack {
             Button(action: {
-                initHealthyFood()
+                viewModel.initNewCollection(.healthyFood)
             }, label: {
                 Text("🍲")
             })
@@ -69,7 +68,7 @@ struct ContentView: View {
     var fastFood: some View {
         VStack {
             Button(action: {
-                initFastFood()
+                viewModel.initNewCollection(.fastFood)
             }, label: {
                 Text("🍔")
             })
@@ -77,21 +76,13 @@ struct ContentView: View {
         }
     }
     
-    func initVehicles() {
-        emojis = vehicleEmojis.shuffled()
-    }
-    
-    func initHealthyFood() {
-        emojis = healthyFoodEmojis.shuffled()
-    }
-    
-    func initFastFood() {
-        emojis = fastFoodEmojis.shuffled()
+    func startGame(collection: EmojiCollection) {
+        viewModel.initNewCollection(collection)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: EmojiMemoryGame())
     }
 }
