@@ -15,7 +15,7 @@ struct ContentView: View {
             Text("Memorize!")
                 .font(.largeTitle)
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
                     ForEach(viewModel.cards[0..<viewModel.cards.count]) { card in
                         CardView(card: card)
                             .aspectRatio(2/3, contentMode: .fit)
