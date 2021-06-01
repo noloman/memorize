@@ -8,9 +8,9 @@
 import Foundation
 
 class EmojiMemoryGame: ObservableObject {
-    static var vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🚅", "🚂", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚤", "🛥️", "🛳️", "⛴️", "🚢", "🚃", "🚄", "🚆", "🚇", "🚈", "🚝", "🚞", "🚋", "🏍", "🛵", "🛺", "🚲", "🛴"]
-    static var healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
-    static var fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
+    private static var vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎", "🚅", "🚂", "🚊", "🚉", "✈️", "🛫", "🛬", "🛩️", "💺", "🚤", "🛥️", "🛳️", "⛴️", "🚢", "🚃", "🚄", "🚆", "🚇", "🚈", "🚝", "🚞", "🚋", "🏍", "🛵", "🛺", "🚲", "🛴"]
+    private static var healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
+    private static var fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
     
     @Published private var model: MemoryGame<String> = createMemoryGame()
     
@@ -18,7 +18,7 @@ class EmojiMemoryGame: ObservableObject {
         return model.cards
     }
     
-    static func createMemoryGame(of: EmojiCollection = .vehicles) -> MemoryGame<String> {
+    private static func createMemoryGame(of: EmojiCollection = .vehicles) -> MemoryGame<String> {
         switch of {
         case .vehicles:
             return MemoryGame<String>(numberOfPairOfCards: vehicleEmojis.count) { pairIndex in
