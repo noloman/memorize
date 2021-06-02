@@ -14,26 +14,17 @@ struct ContentView: View {
         VStack {
             Text("Memorize!")
                 .font(.largeTitle)
-            ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))]) {
-                    ForEach(viewModel.cards[0..<viewModel.cards.count]) { card in
-                        CardView(card: card)
-                            .aspectRatio(2/3, contentMode: .fit)
-                            .onTapGesture {
-                                viewModel.choose(card)
-                            }
+            AspectVGrid(items: viewModel.cards, aspectRatio: 2/3, content: { card in
+                CardView(card: card)
+                    .padding(4)
+                    .aspectRatio(2/3, contentMode: .fit)
+                    .onTapGesture {
+                        viewModel.choose(card)
                     }
-                }
-            }
+            })
             .foregroundColor(.red)
             Spacer()
-            HStack {
-                vehicles
-                Spacer()
-                fastFood
-                Spacer()
-                healthyFood
-            }
+            EmojiTypeView(viewModel: viewModel)
         }
         .onAppear {
             if viewModel.cards.isEmpty {
@@ -42,6 +33,14 @@ struct ContentView: View {
         }
         .padding(.horizontal)
     }
+    
+    private func startGame(collection: EmojiCollection) {
+        viewModel.initNewCollection(collection)
+    }
+}
+
+private struct EmojiTypeView: View {
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var vehicles: some View {
         VStack {
@@ -53,18 +52,6 @@ struct ContentView: View {
             Text("Vehicles")
         }
     }
-    
-    var healthyFood: some View {
-        VStack {
-            Button(action: {
-                viewModel.initNewCollection(.healthyFood)
-            }, label: {
-                Text("🍲")
-            })
-            Text("Healthy food")
-        }
-    }
-    
     var fastFood: some View {
         VStack {
             Button(action: {
@@ -75,9 +62,24 @@ struct ContentView: View {
             Text("Fast food")
         }
     }
-    
-    func startGame(collection: EmojiCollection) {
-        viewModel.initNewCollection(collection)
+    var healthyFood: some View {
+        VStack {
+            Button(action: {
+                viewModel.initNewCollection(.healthyFood)
+            }, label: {
+                Text("🍲")
+            })
+            Text("Healthy food")
+        }
+    }
+    var body: some View {
+        HStack {
+            vehicles
+            Spacer()
+            fastFood
+            Spacer()
+            healthyFood
+        }
     }
 }
 
