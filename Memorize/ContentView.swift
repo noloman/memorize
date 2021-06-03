@@ -94,6 +94,8 @@ private struct EmojiTypeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: EmojiMemoryGame())
+        let game = EmojiMemoryGame()
+        game.choose(game.cards.first!)
+        return ContentView(viewModel: game)
     }
 }
