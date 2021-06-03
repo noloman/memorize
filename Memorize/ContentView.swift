@@ -14,14 +14,9 @@ struct ContentView: View {
         VStack {
             Text("Memorize!")
                 .font(.largeTitle)
-            AspectVGrid(items: viewModel.cards, aspectRatio: 2/3, content: { card in
-                CardView(card: card)
-                    .padding(4)
-                    .aspectRatio(2/3, contentMode: .fit)
-                    .onTapGesture {
-                        viewModel.choose(card)
-                    }
-            })
+            AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
+                renderCard(for: card)
+            }
             .foregroundColor(.red)
             Spacer()
             EmojiTypeView(viewModel: viewModel)
@@ -36,6 +31,20 @@ struct ContentView: View {
     
     private func startGame(collection: EmojiCollection) {
         viewModel.initNewCollection(collection)
+    }
+    
+    @ViewBuilder
+    func renderCard(for card: EmojiMemoryGame.Card) -> some View {
+        if card.isMatched && !card.isFaceUp {
+            Rectangle().opacity(0)
+        } else {
+            CardView(card: card)
+                .padding(4)
+                .aspectRatio(2/3, contentMode: .fit)
+                .onTapGesture {
+                    viewModel.choose(card)
+                }
+        }
     }
 }
 
