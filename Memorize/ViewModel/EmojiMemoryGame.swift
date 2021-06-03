@@ -12,6 +12,8 @@ class EmojiMemoryGame: ObservableObject {
     private static var healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
     private static var fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
     
+    typealias Card = MemoryGame<String>.Card
+    
     @Published private var model: MemoryGame<String> = createMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
