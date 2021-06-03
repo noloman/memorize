@@ -2,7 +2,7 @@
 //  Array+Extension.swift
 //  Memorize
 //
-//  Created by WF06FC on 01/06/2021.
+//  Created by Manuel Lorenzo (noloman) on 01/06/2021.
 //
 
 import Foundation
