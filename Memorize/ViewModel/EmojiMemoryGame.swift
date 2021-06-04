@@ -2,51 +2,54 @@
 //  EmojiMemoryGame.swift
 //  Memorize
 //
-//  Created by Manu on 31/05/2021.
+//  Created by Manuel Lorenzo (@noloman) on 31/05/2021.
 //
 
 import Foundation
+import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-    private static var vehicleEmojis = ["🚗", "🚕", "🚙", "🚌", "🚎","🏍", "🛵", "🛺", "🚲", "🛴"]
-    private static var healthyFoodEmojis = ["🥗","🥘","🍲","🥙","🧆","🍚","🍛","🍝", "🍜","🍞","🥔","🥕","🍊", "🍌","🍇","🍈","🍉"]
-    private static var fastFoodEmojis = ["🍔","🌯","🍟","🌭", "🍕","🌮","🍩","🥯","🥧","🥞","🧁","🧇","🍫","🍰","🍦","🍧","🍨","🍪"]
+    private let numThemes = 5
     
     typealias Card = MemoryGame<String>.Card
-    
-    @Published private var model: MemoryGame<String> = createMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }
     
-    private static func createMemoryGame(of: EmojiCollection = .vehicles) -> MemoryGame<String> {
-        switch of {
-        case .vehicles:
-            return MemoryGame<String>(numberOfPairOfCards: vehicleEmojis.count) { pairIndex in
-                EmojiMemoryGame.vehicleEmojis[pairIndex]
-            }
-        case .fastFood:
-            return MemoryGame<String>(numberOfPairOfCards: fastFoodEmojis.count) { pairIndex in
-                EmojiMemoryGame.fastFoodEmojis[pairIndex]
-            }
-        case .healthyFood:
-            return MemoryGame<String>(numberOfPairOfCards: healthyFoodEmojis.count) { pairIndex in
-                EmojiMemoryGame.healthyFoodEmojis[pairIndex]
-            }
+    @Published var theme: Theme = TravelTheme()
+    
+    @Published
+    private var model: MemoryGame<String> = createMemoryGame(from: TravelTheme())
+    
+    private static func createMemoryGame<T>(from theme: T) -> MemoryGame<String> where T: Theme {
+        return MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
+            theme.emojiSet[pairIndex]
         }
     }
     
-    func initNewCollection(_ collection: EmojiCollection) {
-        model = EmojiMemoryGame.createMemoryGame(of: collection)
+    func initNewCollection() {
+        switch Int.random(in: 1..<numThemes) {
+        case 1:
+            theme = FoodTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! FoodTheme)
+        case 2:
+            theme = AnimalsTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! AnimalsTheme)
+        case 3:
+            theme = ObjectsTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! ObjectsTheme)
+        case 4:
+            theme = ActivitiesTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! ActivitiesTheme)
+        default:
+            theme = TravelTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! TravelTheme)
+        }
     }
     
     // MARK: - Intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
-}
-
-enum EmojiCollection {
-    case vehicles, healthyFood, fastFood
 }
