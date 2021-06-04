@@ -17,7 +17,17 @@
 		07607A292664E00000C491B4 /* MemorizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07607A282664E00000C491B4 /* MemorizeTests.swift */; };
 		07607A342664E00000C491B4 /* MemorizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07607A332664E00000C491B4 /* MemorizeUITests.swift */; };
 		07607A462664E10B00C491B4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07607A452664E10B00C491B4 /* CardView.swift */; };
+		078F21672668FEFA00EF00AC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F21662668FEFA00EF00AC /* Theme.swift */; };
+		078F216C2669008D00EF00AC /* TravelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F216B2669008D00EF00AC /* TravelTheme.swift */; };
+		078F216D2669008D00EF00AC /* TravelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F216B2669008D00EF00AC /* TravelTheme.swift */; };
+		078F216E2669008D00EF00AC /* TravelTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F216B2669008D00EF00AC /* TravelTheme.swift */; };
+		078F217E2669017B00EF00AC /* FoodTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F217D2669017B00EF00AC /* FoodTheme.swift */; };
+		078F217F2669017B00EF00AC /* FoodTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F217D2669017B00EF00AC /* FoodTheme.swift */; };
+		078F21802669017B00EF00AC /* FoodTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078F217D2669017B00EF00AC /* FoodTheme.swift */; };
 		07A84C5C2668CB2100542EE2 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A84C5B2668CB2100542EE2 /* Pie.swift */; };
+		07D1941D266A1434007DBEF6 /* AnimalsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1941C266A1434007DBEF6 /* AnimalsTheme.swift */; };
+		07D19425266A4765007DBEF6 /* ActivitiesTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19424266A4765007DBEF6 /* ActivitiesTheme.swift */; };
+		07D1942A266A484F007DBEF6 /* ObjectsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D19429266A484F007DBEF6 /* ObjectsTheme.swift */; };
 		07DD5D182666766500671A14 /* Array+ExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD5D172666766500671A14 /* Array+ExtensionTest.swift */; };
 		07DD5D1D2666770500671A14 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD5D1C2666770500671A14 /* Array+Extension.swift */; };
 		07DD5D1E2666770500671A14 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DD5D1C2666770500671A14 /* Array+Extension.swift */; };
@@ -57,7 +67,13 @@
 		07607A332664E00000C491B4 /* MemorizeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeUITests.swift; sourceTree = "<group>"; };
 		07607A352664E00000C491B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07607A452664E10B00C491B4 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		078F21662668FEFA00EF00AC /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		078F216B2669008D00EF00AC /* TravelTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelTheme.swift; sourceTree = "<group>"; };
+		078F217D2669017B00EF00AC /* FoodTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTheme.swift; sourceTree = "<group>"; };
 		07A84C5B2668CB2100542EE2 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		07D1941C266A1434007DBEF6 /* AnimalsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsTheme.swift; sourceTree = "<group>"; };
+		07D19424266A4765007DBEF6 /* ActivitiesTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesTheme.swift; sourceTree = "<group>"; };
+		07D19429266A484F007DBEF6 /* ObjectsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsTheme.swift; sourceTree = "<group>"; };
 		07DD5D172666766500671A14 /* Array+ExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+ExtensionTest.swift"; sourceTree = "<group>"; };
 		07DD5D1C2666770500671A14 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +115,11 @@
 			isa = PBXGroup;
 			children = (
 				0723715C2666347E00D951CA /* MemoryGame.swift */,
+				078F216B2669008D00EF00AC /* TravelTheme.swift */,
+				078F217D2669017B00EF00AC /* FoodTheme.swift */,
+				07D1941C266A1434007DBEF6 /* AnimalsTheme.swift */,
+				07D19424266A4765007DBEF6 /* ActivitiesTheme.swift */,
+				07D19429266A484F007DBEF6 /* ObjectsTheme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -126,6 +147,7 @@
 		07607A152664DFFF00C491B4 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				078F21722669011F00EF00AC /* Protocols */,
 				0723715B2666347E00D951CA /* Model */,
 				072371542666345100D951CA /* ViewModel */,
 				07607A442664E0F900C491B4 /* Views */,
@@ -174,6 +196,14 @@
 				07A84C5B2668CB2100542EE2 /* Pie.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		078F21722669011F00EF00AC /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				078F21662668FEFA00EF00AC /* Theme.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,14 +335,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078F21672668FEFA00EF00AC /* Theme.swift in Sources */,
 				0723715D2666347E00D951CA /* MemoryGame.swift in Sources */,
 				07607A192664DFFF00C491B4 /* ContentView.swift in Sources */,
 				07A84C5C2668CB2100542EE2 /* Pie.swift in Sources */,
+				078F216C2669008D00EF00AC /* TravelTheme.swift in Sources */,
+				07D1941D266A1434007DBEF6 /* AnimalsTheme.swift in Sources */,
+				07D19425266A4765007DBEF6 /* ActivitiesTheme.swift in Sources */,
 				0725A8B726677B2900819F52 /* AspectVGrid.swift in Sources */,
 				07607A462664E10B00C491B4 /* CardView.swift in Sources */,
 				07DD5D1D2666770500671A14 /* Array+Extension.swift in Sources */,
 				07607A172664DFFF00C491B4 /* MemorizeApp.swift in Sources */,
 				072371562666345100D951CA /* EmojiMemoryGame.swift in Sources */,
+				07D1942A266A484F007DBEF6 /* ObjectsTheme.swift in Sources */,
+				078F217E2669017B00EF00AC /* FoodTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,9 +356,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078F216D2669008D00EF00AC /* TravelTheme.swift in Sources */,
 				07DD5D1E2666770500671A14 /* Array+Extension.swift in Sources */,
 				07607A292664E00000C491B4 /* MemorizeTests.swift in Sources */,
 				07DD5D182666766500671A14 /* Array+ExtensionTest.swift in Sources */,
+				078F217F2669017B00EF00AC /* FoodTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,7 +368,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078F216E2669008D00EF00AC /* TravelTheme.swift in Sources */,
 				07607A342664E00000C491B4 /* MemorizeUITests.swift in Sources */,
+				078F21802669017B00EF00AC /* FoodTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
