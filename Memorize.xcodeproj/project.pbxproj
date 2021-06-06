@@ -143,13 +143,13 @@
 		07607A152664DFFF00C491B4 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				329B4EEA266CB1DD00AEC178 /* Extensions */,
 				078F21722669011F00EF00AC /* Protocols */,
 				0723715B2666347E00D951CA /* Model */,
 				072371542666345100D951CA /* ViewModel */,
 				07607A442664E0F900C491B4 /* Views */,
 				07607A162664DFFF00C491B4 /* MemorizeApp.swift */,
 				07607A182664DFFF00C491B4 /* ContentView.swift */,
-				07DD5D1C2666770500671A14 /* Array+Extension.swift */,
 				07607A1A2664E00000C491B4 /* Assets.xcassets */,
 				07607A1F2664E00000C491B4 /* Info.plist */,
 				07607A1C2664E00000C491B4 /* Preview Content */,
@@ -212,6 +212,14 @@
 				07D19429266A484F007DBEF6 /* ObjectsTheme.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		329B4EEA266CB1DD00AEC178 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				07DD5D1C2666770500671A14 /* Array+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
