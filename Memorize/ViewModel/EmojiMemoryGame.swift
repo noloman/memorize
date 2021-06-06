@@ -22,6 +22,12 @@ class EmojiMemoryGame: ObservableObject {
     @Published
     private var model: MemoryGame<String> = createMemoryGame(from: TravelTheme())
     
+    var score: Int {
+        get {
+            model.score
+        }
+    }
+    
     private static func createMemoryGame<T>(from theme: T) -> MemoryGame<String> where T: Theme {
         return MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
             theme.emojiSet[pairIndex]
@@ -47,7 +53,7 @@ class EmojiMemoryGame: ObservableObject {
             model = EmojiMemoryGame.createMemoryGame(from: theme as! TravelTheme)
         }
     }
-    
+
     // MARK: - Intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)

@@ -12,9 +12,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button(action: { startGame() }) {
-                Text("New game")
-                    .font(.title)
+            HStack {
+                Button(action: { startGame() }) {
+                    Text("New game")
+                        .font(.title)
+                }
+                Spacer()
+                Text("Score: \(viewModel.score)")
             }
             AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
                 renderCard(for: card)
