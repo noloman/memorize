@@ -114,12 +114,8 @@
 		0723715B2666347E00D951CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				329B4EE9266CB1A900AEC178 /* Theme */,
 				0723715C2666347E00D951CA /* MemoryGame.swift */,
-				078F216B2669008D00EF00AC /* TravelTheme.swift */,
-				078F217D2669017B00EF00AC /* FoodTheme.swift */,
-				07D1941C266A1434007DBEF6 /* AnimalsTheme.swift */,
-				07D19424266A4765007DBEF6 /* ActivitiesTheme.swift */,
-				07D19429266A484F007DBEF6 /* ObjectsTheme.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +200,18 @@
 				078F21662668FEFA00EF00AC /* Theme.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		329B4EE9266CB1A900AEC178 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				078F216B2669008D00EF00AC /* TravelTheme.swift */,
+				078F217D2669017B00EF00AC /* FoodTheme.swift */,
+				07D1941C266A1434007DBEF6 /* AnimalsTheme.swift */,
+				07D19424266A4765007DBEF6 /* ActivitiesTheme.swift */,
+				07D19429266A484F007DBEF6 /* ObjectsTheme.swift */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
