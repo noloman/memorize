@@ -32,7 +32,7 @@ class EmojiMemoryGame: ObservableObject {
         return MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
             theme.emojiSet[pairIndex]
         }
-    }
+    }   
     
     func initNewCollection() {
         switch Int.random(in: 1..<numThemes) {
@@ -48,6 +48,9 @@ class EmojiMemoryGame: ObservableObject {
         case 4:
             theme = ActivitiesTheme()
             model = EmojiMemoryGame.createMemoryGame(from: theme as! ActivitiesTheme)
+        case 5:
+            theme = SmileysTheme()
+            model = EmojiMemoryGame.createMemoryGame(from: theme as! SmileysTheme)
         default:
             theme = TravelTheme()
             model = EmojiMemoryGame.createMemoryGame(from: theme as! TravelTheme)
