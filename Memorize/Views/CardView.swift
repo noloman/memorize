@@ -12,32 +12,32 @@ struct CardView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-                if card.isFaceUp {
-                    shape.fill().foregroundColor(.white)
-                    shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                    Text(card.content).font(font(in: geometry.size))
-                } else {
-                    shape.fill()
-                }
+            ZStack {
+                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                    .padding(5)
+                    .opacity(0.5)
+                Text(card.content)
+                    .font(font(in: geometry.size))
             }
         }
+        .cardify(isFaceUp: card.isFaceUp)
     }
     
     private func font(in size: CGSize) -> Font {
-        Font.system(size: min(size.height, size.width) * DrawingConstants.fontScale)
+        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
     }
-    
-    private struct DrawingConstants {
-        static let cornerRadius: CGFloat = 10
-        static let fontScale: CGFloat = 0.75
-        static let lineWidth: CGFloat = 3
+}
+
+extension View {
+    func cardify(isFaceUp: Bool) -> some View {
+        return self.modifier(Cardify(isFaceUp: isFaceUp))
     }
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: MemoryGame<String>.Card(content: "🚙", id: 2))
+        var card = MemoryGame<String>.Card(content: "🚙", id: 2)
+        card.isFaceUp = true
+        return CardView(card: card)
     }
 }
