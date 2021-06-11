@@ -17,10 +17,11 @@ struct Cardify: ViewModifier {
             if isFaceUp {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                content
             } else {
                 shape.fill()
             }
+            content
+                .opacity(isFaceUp ? 1:0)
         }
     }
 }
@@ -29,4 +30,5 @@ struct DrawingConstants {
     static let cornerRadius: CGFloat = 10
     static let fontScale: CGFloat = 0.7
     static let lineWidth: CGFloat = 3
+    static let fontSize: CGFloat = 32
 }
