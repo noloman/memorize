@@ -57,7 +57,9 @@ struct ContentView: View {
                 .padding(4)
                 .aspectRatio(2/3, contentMode: .fit)
                 .onTapGesture {
-                    viewModel.choose(card)
+                    withAnimation {
+                        viewModel.choose(card)
+                    }
                 }
         }
     }
