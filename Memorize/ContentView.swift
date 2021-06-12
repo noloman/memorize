@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
-    var body: some View {
+    var gameBody: some View {
         VStack {
             HStack {
                 Button(action: { startGame() }) {
@@ -26,7 +26,22 @@ struct ContentView: View {
             .foregroundColor(viewModel.theme.color)
             Spacer()
         }
+    }
+    
+    var body: some View {
+        VStack {
+            gameBody
+            shuffle
+        }
         .padding(.horizontal)
+    }
+    
+    var shuffle: some View {
+        Button("Shuffle") {
+            withAnimation {
+                viewModel.shuffle()
+            }
+        }
     }
     
     private func startGame() {
@@ -36,7 +51,7 @@ struct ContentView: View {
     @ViewBuilder
     func renderCard(for card: EmojiMemoryGame.Card) -> some View {
         if card.isMatched && !card.isFaceUp {
-            Rectangle().opacity(0)
+            Color.clear
         } else {
             CardView(card: card)
                 .padding(4)
