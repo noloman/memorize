@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class EmojiMemoryGame: ObservableObject {
+class EmojiMemoryGameViewModel: ObservableObject {
     private let numThemes = 5
     
     typealias Card = MemoryGame<String>.Card
@@ -38,25 +38,25 @@ class EmojiMemoryGame: ObservableObject {
         switch Int.random(in: 1..<numThemes) {
         case 1:
             theme = FoodTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! FoodTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! FoodTheme)
         case 2:
             theme = AnimalsTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! AnimalsTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! AnimalsTheme)
         case 3:
             theme = ObjectsTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! ObjectsTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! ObjectsTheme)
         case 4:
             theme = ActivitiesTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! ActivitiesTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! ActivitiesTheme)
         case 5:
             theme = SmileysTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! SmileysTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! SmileysTheme)
         default:
             theme = TravelTheme()
-            model = EmojiMemoryGame.createMemoryGame(from: theme as! TravelTheme)
+            model = EmojiMemoryGameViewModel.createMemoryGame(from: theme as! TravelTheme)
         }
     }
-
+    
     // MARK: - Intent(s)
     func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)

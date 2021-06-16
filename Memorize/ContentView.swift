@@ -8,7 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var viewModel: EmojiMemoryGameViewModel
+    
+    @Namespace private var dealingNamespace
+    
+    @State private var dealt = Set<Int>()
+    
+    private func isUndealt(_ card: EmojiMemoryGameViewModel.Card) -> Bool {
+        return !dealt.contains(card.id)
+    }
+    
+    private func deal(_ card: EmojiMemoryGameViewModel.Card) {
+        dealt.insert(card.id)
+    }
     
     var gameBody: some View {
         VStack {
@@ -31,6 +43,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             gameBody
+            deckBody
             shuffle
         }
         .padding(.horizontal)
@@ -42,6 +55,36 @@ struct ContentView: View {
                 viewModel.shuffle()
             }
         }
+        .padding(.vertical)
+    }
+    
+    var deckBody: some View {
+        ZStack {
+            ForEach(viewModel.cards.filter(isUndealt)) { card in
+                CardView(card: card)
+                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    .transition(.asymmetric(insertion: .identity, removal: .scale))
+            }
+        }
+        .frame(width: CardConstants.undealthWidth, height: CardConstants.undealtHeight)
+        .foregroundColor(viewModel.theme.color)
+        .onTapGesture {
+            // "deal" cards
+            withAnimation(.easeInOut(duration: 5)) {
+                for card in viewModel.cards {
+                    deal(card)
+                }
+            }
+        }
+    }
+    
+    private struct CardConstants {
+        static let color = Color.red
+        static let aspectRatio = 2/3
+        static let dealDuration = 0.5
+        static let totalDealDuration = 2
+        static let undealtHeight: CGFloat = 90
+        static let undealthWidth: CGFloat = 60
     }
     
     private func startGame() {
@@ -49,13 +92,14 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    func renderCard(for card: EmojiMemoryGame.Card) -> some View {
-        if card.isMatched && !card.isFaceUp {
+    func renderCard(for card: EmojiMemoryGameViewModel.Card) -> some View {
+        if isUndealt(card) || card.isMatched && !card.isFaceUp {
             Color.clear
         } else {
             CardView(card: card)
+                .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                 .padding(4)
-                .aspectRatio(2/3, contentMode: .fit)
+                .transition(.asymmetric(insertion: .scale, removal: .identity))
                 .onTapGesture {
                     withAnimation {
                         viewModel.choose(card)
@@ -67,7 +111,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = EmojiMemoryGame()
+        let game = EmojiMemoryGameViewModel()
         game.choose(game.cards.first!)
         return ContentView(viewModel: game)
     }
