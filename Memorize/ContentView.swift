@@ -57,7 +57,7 @@ struct ContentView: View {
             ForEach(viewModel.cards.filter(isUndealt)) { card in
                 CardView(card: card)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                    .transition(.asymmetric(insertion: .identity, removal: .scale))
+                    .transition(.asymmetric(insertion: .opacity, removal: .identity))
                     .zIndex(zIndex(of: card))
             }
         }
@@ -81,7 +81,7 @@ struct ContentView: View {
             CardView(card: card)
                 .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                 .padding(4)
-                .transition(.asymmetric(insertion: .scale, removal: .identity))
+                .transition(.asymmetric(insertion: .identity, removal: .scale))
                 .zIndex(zIndex(of: card))
                 .onTapGesture {
                     withAnimation {
