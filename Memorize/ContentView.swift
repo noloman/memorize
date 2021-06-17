@@ -14,14 +14,6 @@ struct ContentView: View {
     
     @State private var dealt = Set<Int>()
     
-    private func isUndealt(_ card: EmojiMemoryGameViewModel.Card) -> Bool {
-        return !dealt.contains(card.id)
-    }
-    
-    private func deal(_ card: EmojiMemoryGameViewModel.Card) {
-        dealt.insert(card.id)
-    }
-    
     var gameBody: some View {
         VStack {
             HStack {
@@ -64,35 +56,23 @@ struct ContentView: View {
                 CardView(card: card)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                     .transition(.asymmetric(insertion: .identity, removal: .scale))
+                    .zIndex(zIndex(of: card))
             }
         }
         .frame(width: CardConstants.undealthWidth, height: CardConstants.undealtHeight)
         .foregroundColor(viewModel.theme.color)
         .onTapGesture {
             // "deal" cards
-            withAnimation(.easeInOut(duration: 5)) {
-                for card in viewModel.cards {
+            for card in viewModel.cards {
+                withAnimation(dealAnimation(for: card)) {
                     deal(card)
                 }
             }
         }
     }
     
-    private struct CardConstants {
-        static let color = Color.red
-        static let aspectRatio = 2/3
-        static let dealDuration = 0.5
-        static let totalDealDuration = 2
-        static let undealtHeight: CGFloat = 90
-        static let undealthWidth: CGFloat = 60
-    }
-    
-    private func startGame() {
-        viewModel.initNewCollection()
-    }
-    
     @ViewBuilder
-    func renderCard(for card: EmojiMemoryGameViewModel.Card) -> some View {
+    private func renderCard(for card: EmojiMemoryGameViewModel.Card) -> some View {
         if isUndealt(card) || card.isMatched && !card.isFaceUp {
             Color.clear
         } else {
@@ -100,12 +80,46 @@ struct ContentView: View {
                 .matchedGeometryEffect(id: card.id, in: dealingNamespace)
                 .padding(4)
                 .transition(.asymmetric(insertion: .scale, removal: .identity))
+                .zIndex(zIndex(of: card))
                 .onTapGesture {
                     withAnimation {
                         viewModel.choose(card)
                     }
                 }
         }
+    }
+    
+    private func isUndealt(_ card: EmojiMemoryGameViewModel.Card) -> Bool {
+        return !dealt.contains(card.id)
+    }
+    
+    private func deal(_ card: EmojiMemoryGameViewModel.Card) {
+        dealt.insert(card.id)
+    }
+    
+    private func dealAnimation(for card: EmojiMemoryGameViewModel.Card) -> Animation {
+        var delay = 0.0
+        if let index = viewModel.cards.firstIndex(where: { $0.id == card.id }) {
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(viewModel.cards.count))
+        }
+        return Animation.easeOut(duration: CardConstants.dealDuration).delay(delay)
+    }
+    
+    private func zIndex(of card: EmojiMemoryGameViewModel.Card) -> Double {
+        -Double(viewModel.cards.firstIndex(where: { $0.id == card.id }) ?? 0)
+    }
+    
+    private func startGame() {
+        viewModel.initNewCollection()
+    }
+    
+    private struct CardConstants {
+        static let color = Color.red
+        static let aspectRatio = 2/3
+        static let dealDuration = 0.5
+        static let totalDealDuration: Double = 2.0
+        static let undealtHeight: CGFloat = 90
+        static let undealthWidth: CGFloat = 60
     }
 }
 
