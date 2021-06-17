@@ -33,12 +33,14 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            gameBody
+        ZStack(alignment: .bottom) {
+            VStack {
+                gameBody
+                shuffle
+            }.padding(.horizontal)
             deckBody
-            shuffle
+                .padding(.vertical)
         }
-        .padding(.horizontal)
     }
     
     var shuffle: some View {
