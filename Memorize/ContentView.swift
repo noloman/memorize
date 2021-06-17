@@ -112,7 +112,10 @@ struct ContentView: View {
     }
     
     private func startGame() {
-        viewModel.initNewCollection()
+        withAnimation {
+            dealt = []
+            viewModel.initNewCollection()
+        }
     }
     
     private struct CardConstants {
