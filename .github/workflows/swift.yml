@@ -22,8 +22,8 @@ jobs:
       #- name: Switch to Xcode 11
       #run: sudo xcode-select -s /Applications/Xcode_11.3.1.app
 
-    - name: lint
-      run: swift format lint --configuration .swift-format-config -r .
+    - name: swift-format-lint
+      uses: Iron-Ham/swift-format-linter-action@v5
 
     - name: build and test
       run: xcodebuild clean test -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
