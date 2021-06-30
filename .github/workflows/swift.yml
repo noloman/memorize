@@ -1,90 +1,47 @@
-name: Swift
+name: CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push]
 
 jobs:
   build:
-    name: Build
-    env:
-      SCHEME: "Actions"
-      DEVICE: "iPhone 11"
-      DERIVED_DATA_PATH: "DerivedData"
-    runs-on: macOS-latest
-    steps:
-    - name: Checkout project
-      uses: actions/checkout@v1
-    - name: Build application
-      run: |
-        set -o pipefail && xcodebuild clean -scheme $SCHEME -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH build-for-testing | xcpretty --color --simple
-    - name: Upload products
-      uses: actions/upload-artifact@v1
-      with:
-        name: Products
-        path: DerivedData/Build/Products
 
-  unit_test:
-    name: Unit test
-    env:
-      DEVICE: "iPhone 11"
-      DERIVED_DATA_PATH: "DerivedData"
-      UNIT_TEST_TARGET: "ActionsTests"
-    runs-on: macOS-latest
-    needs: build
-    steps:
-    - name: Checkout project
-      uses: actions/checkout@v1
-    - name: Download products
-      uses: actions/download-artifact@v1
-      with:
-        name: Products
-    - name: Run unit tests
-      run: |
-        set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES -only-testing:$UNIT_TEST_TARGET | xcpretty --color --simple
-    - name: Upload test logs
-      uses: actions/upload-artifact@v1
-      with:
-        name: TestLogs
-        path: DerivedData/Logs/Test
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        run-config:
+          - { scheme: 'MPCF-Reflector-mac', destination: 'platform=macOS' }
+          - { scheme: 'MPCF-TestRunner-mac', destination: 'platform=macOS' }
+          - { scheme: 'MPCF-Reflector-ios', destination: 'platform=iOS Simulator,OS=13.4.1,name=iPhone 8' }
+          - { scheme: 'MPCF-TestRunner-ios', destination: 'platform=iOS Simulator,OS=13.4.1,name=iPhone 8' }
+          - { scheme: 'MPCF-Reflector-tvOS', destination: 'platform=tvOS Simulator,OS=13.4,name=Apple TV' }
 
-  ui_test:
-    name: UI test
-    env:
-      DEVICE: "iPhone 11"
-      DERIVED_DATA_PATH: "DerivedData"
-      UI_TEST_TARGET: "ActionsUITests"
-    runs-on: macOS-latest
-    needs: build
     steps:
-    - name: Checkout project 
+    - name: Checkout Project
       uses: actions/checkout@v1
-    - name: Download products
-      uses: actions/download-artifact@v1
-      with:
-        name: Products
-    - name: Run UI tests
-      run: |
-        set -o pipefail && xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "platform=iOS Simulator,name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES -only-testing:$UI_TEST_TARGET | xcpretty  --color --simple
-      
-  analyze:
-    name: Static analyze
-    env:
-      DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-    runs-on: macOS-latest
-    needs: unit_test
-    steps:
-    - name: Checkout project
-      uses: actions/checkout@v1
-    - name: Download test logs
-      uses: actions/download-artifact@v1
-      with:
-        name: TestLogs
-    - name: Setup bundle
-      run: |
-        bundle install
-    - name: Danger
-      run: |
-        bundle exec danger
+
+    - name: Homebrew build helpers install
+      run: brew bundle
+
+    - name: Show the currently detailed version of Xcode for CLI
+      run: xcode-select -p
+
+      #- name: Show what's in Applications
+      #run: ls -al /Applications
+
+      #- name: Switch to Xcode 11
+      #run: sudo xcode-select -s /Applications/Xcode_11.3.1.app
+
+    - name: Show Build Settings
+      run: xcodebuild -workspace MPCF-TestBench.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showBuildSettings
+
+    - name: Show Build SDK
+      run: xcodebuild -workspace MPCF-TestBench.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showsdks
+
+    - name: Show Available Destinations
+      run: xcodebuild -workspace MPCF-TestBench.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations
+
+    - name: lint
+      run: swift format lint --configuration .swift-format-config -r .
+
+    - name: build and test
+      run: xcodebuild clean test -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
