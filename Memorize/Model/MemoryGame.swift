@@ -2,7 +2,7 @@
 //  MemoryGame.swift
 //  Memorize
 //
-//  Created by Manu on 31/05/2021.
+//  Created by Manuel Lorenzo (@noloman) on 31/05/2021.
 //
 
 import Foundation
@@ -39,6 +39,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         {
             if let potentialMatchIndex = indexOfTheOnlyOneAndOnlyFaceUpCard {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                    print("Content of chosen card: \(cards[chosenIndex].content)")
+                    print("Content of potential match: \(cards[potentialMatchIndex].content)")
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
                     score += 1

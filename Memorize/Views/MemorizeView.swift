@@ -1,18 +1,33 @@
 //
-//  ContentView.swift
+//  MemorizeView.swift
 //  Memorize
 //
-//  Created by Manuel Lorenzo (@noloman) on 31/05/2021.
+//  Created by Manuel Lorenzo (@noloman) on 08/07/2021.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct MemorizeView: View {
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     
     @Namespace private var dealingNamespace
-    
+
     @State private var dealt = Set<Int>()
+    
+    init(theme: Theme) {
+        viewModel = EmojiMemoryGameViewModel(theme: theme)
+    }
+    
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                gameBody
+                shuffle
+            }.padding(.horizontal)
+            deckBody
+                .padding(.vertical)
+        }
+    }
     
     var gameBody: some View {
         VStack {
@@ -29,17 +44,6 @@ struct ContentView: View {
             }
             .foregroundColor(viewModel.theme.color)
             Spacer()
-        }
-    }
-    
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                gameBody
-                shuffle
-            }.padding(.horizontal)
-            deckBody
-                .padding(.vertical)
         }
     }
     
@@ -128,10 +132,11 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MemorizeView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = EmojiMemoryGameViewModel()
+        let theme = ThemeStore().themes.first!
+        let game = EmojiMemoryGameViewModel(theme: theme)
         game.choose(game.cards.first!)
-        return ContentView(viewModel: game)
+        return MemorizeView(theme: theme)
     }
 }
