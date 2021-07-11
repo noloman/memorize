@@ -56,7 +56,7 @@ struct ThemeChooserView: View {
             .environment(\.editMode, $editMode)
             .sheet(item: $themeToEdit,
                    onDismiss: {
-                    if $themeToEdit.wrappedValue?.isEmpty() != nil {
+                    if let theme = $themeToEdit.wrappedValue, theme.isEmpty() {
                         themeStore.removeTheme(at: 0)
                     }
                    }) { theme in

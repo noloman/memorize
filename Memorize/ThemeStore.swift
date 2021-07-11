@@ -29,7 +29,7 @@ class ThemeStore: ObservableObject {
         let unique = (themes.max(by: { $0.id < $1.id })?.id ?? 0) + 1
         var theme: Theme
         if let emojis = emojis {
-            theme = Theme(id: unique, name: name, emojiSet: emojis, color: color, numPairCards: emojis.count / 2)
+            theme = Theme(id: unique, name: name, emojiSet: emojis, color: color, numPairCards: emojis.count)
         } else {
             theme = Theme(id: unique, name: name, emojiSet: "", color: color, numPairCards: 0)
         }

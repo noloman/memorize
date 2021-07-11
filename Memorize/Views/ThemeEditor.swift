@@ -11,26 +11,42 @@ struct ThemeEditor: View {
     @EnvironmentObject var themeStore: ThemeStore
     @Binding var themeToEdit: Theme
     @Environment(\.presentationMode) var presentationMode
+    @State private var numPairs = 2
+    @State private var validationAlertPresented = false
     
     var body: some View {
         Form {
             Section(header: Text("Name")) {
                 TextField("Name", text: $themeToEdit.name)
-                    .onChange(of: themeToEdit.name) { name in
-                        
-                    }
             }
             Section(header: Text("Emojis")) {
                 TextField("Emojis", text: $themeToEdit.emojiSet)
-                    .onChange(of: themeToEdit.emojiSet) { emojiSet in
-                        
-                    }
             }
             Section(header: Text("Color")) {
                 let selectedColor = $themeToEdit.color
                 let colorsArray = [Color.black, Color.blue, Color.gray, Color.green, Color.orange, Color.pink, Color.purple, Color.red, Color.yellow]
                 buildRectangles(selectedColor, colors: colorsArray)
             }
+            Section(header: Text("Number of pairs of cards")) {
+                Stepper(
+                    "Number of pairs: \(numPairs)",
+                    value: $numPairs, in: 2...100,
+                    step: 1
+                )
+                .onChange(of: numPairs) { pairs in
+                    themeToEdit.numPairCards = pairs
+                }
+            }
+        }
+        .alert(isPresented: $validationAlertPresented) {
+            var titleText: String = ""
+            if themeToEdit.emojiSet.count < 2 {
+                titleText.append("The number of emojis must be bigger than 2")
+            }
+            if themeToEdit.name == "" {
+                titleText.append("There should be a name")
+            }
+            return Alert(title: Text(titleText))
         }
         .navigationTitle("Edit Faces")
         .toolbar {
@@ -44,13 +60,19 @@ struct ThemeEditor: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    themeToEdit.numPairCards = themeToEdit.emojiSet.count
-                    presentationMode.wrappedValue.dismiss()
+                    if !validate() {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 } label: {
                     Text("Done")
                 }
             }
         }
+    }
+    
+    func validate() -> Bool {
+        validationAlertPresented = (themeToEdit.emojiSet.count < 2 || themeToEdit.name.isEmpty) ? true : false
+        return validationAlertPresented
     }
     
     @ViewBuilder

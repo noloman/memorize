@@ -21,7 +21,7 @@ struct MemorizeView: View {
             .padding([.vertical, .horizontal])
             deckBody
         }
-        .navigationTitle(viewModel.themeName())
+        .navigationTitle(viewModel.themeName)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
