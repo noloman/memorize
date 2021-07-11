@@ -11,7 +11,7 @@ struct MemorizeView: View {
     @ObservedObject var viewModel: EmojiMemoryGameViewModel
     
     @Namespace private var dealingNamespace
-
+    
     @State private var dealt = Set<Int>()
     
     init(theme: Theme) {
@@ -23,7 +23,8 @@ struct MemorizeView: View {
             VStack {
                 gameBody
                 shuffle
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal)
             deckBody
                 .padding(.vertical)
         }
@@ -32,7 +33,9 @@ struct MemorizeView: View {
     var gameBody: some View {
         VStack {
             HStack {
-                Button(action: { startGame() }) {
+                Button {
+                    startGame()
+                } label: {
                     Text("New game")
                         .font(.title)
                 }

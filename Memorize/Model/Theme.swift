@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Theme: Hashable {
+struct Theme: Hashable, Identifiable {
+    var id: Int
     var name: String
     var emojiSet: String
     var color: Color

@@ -8,7 +8,17 @@
 import SwiftUI
 
 struct ThemeChooserView: View {
-    @State private var themeStore = ThemeStore()
+    @EnvironmentObject var themeStore: ThemeStore
+    @State private var themeToEdit: Theme?
+    @State private var editMode: EditMode = .inactive
+    
+    func tap(_ theme: Theme) -> some Gesture {
+        TapGesture()
+            .onEnded {
+                themeToEdit = themeStore.themes[theme]
+            }
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -21,6 +31,12 @@ struct ThemeChooserView: View {
                                 .lineLimit(1)
                         }
                     }
+                    .gesture(editMode == .active ? tap(theme) : nil)
+                }.onDelete { indexSet in
+                    themeStore.themes.remove(atOffsets: indexSet)
+                }
+                .onMove { fromIndexSet, toIndexSet in
+                    themeStore.themes.move(fromOffsets: fromIndexSet, toOffset: toIndexSet)
                 }
             }
             .navigationBarTitle("Memorize")
@@ -28,17 +44,25 @@ struct ThemeChooserView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        
+                        themeStore.insertTheme(named: "", emojis: nil, at: 0, color: .blue)
+                        themeToEdit = themeStore.themes.first
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Text("Edit")
+                    EditButton()
+                }
+            }
+            .environment(\.editMode, $editMode)
+            .sheet(item: $themeToEdit,
+                   onDismiss: {
+                    if $themeToEdit.wrappedValue?.isEmpty() != nil {
+                        themeStore.removeTheme(at: 0)
                     }
+                   }) { theme in
+                NavigationView {
+                    ThemeEditor(themeToEdit: $themeStore.themes[theme])
                 }
             }
         }
@@ -48,5 +72,6 @@ struct ThemeChooserView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ThemeChooserView()
+            .environmentObject(ThemeStore())
     }
 }

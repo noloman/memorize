@@ -25,9 +25,19 @@ class ThemeStore: ObservableObject {
         insertTheme(named: "Faces", emojis: "😀😃😄😁😆😅😂🤣🥲☺️😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😠😡🤯😳🥶😥😓🤗🤔🤭🤫🤥😬🙄😯😧🥱😴🤮😷🤧🤒🤠", color: .pink)
     }
     
-    func insertTheme(named name: String, emojis: String, at index: Int = 0, color: Color) {
-        let theme = Theme(name: name, emojiSet: emojis, color: color, numPairCards: emojis.count / 2)
+    func insertTheme(named name: String, emojis: String? = nil, at index: Int = 0, color: Color) {
+        let unique = (themes.max(by: { $0.id < $1.id })?.id ?? 0) + 1
+        var theme: Theme
+        if let emojis = emojis {
+            theme = Theme(id: unique, name: name, emojiSet: emojis, color: color, numPairCards: emojis.count / 2)
+        } else {
+            theme = Theme(id: unique, name: name, emojiSet: "", color: color, numPairCards: 0)
+        }
         let safeIndex = min(max(index, 0), themes.count)
         themes.insert(theme, at: safeIndex)
+    }
+    
+    func removeTheme(at: Int) {
+        themes.remove(at: at)
     }
 }
