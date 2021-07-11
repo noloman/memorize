@@ -8,15 +8,9 @@
 import SwiftUI
 
 struct MemorizeView: View {
-    @ObservedObject var viewModel: EmojiMemoryGameViewModel
-    
     @Namespace private var dealingNamespace
-    
+    @ObservedObject var viewModel: EmojiMemoryGameViewModel
     @State private var dealt = Set<Int>()
-    
-    init(theme: Theme) {
-        viewModel = EmojiMemoryGameViewModel(theme: theme)
-    }
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -24,29 +18,33 @@ struct MemorizeView: View {
                 gameBody
                 shuffle
             }
-            .padding(.horizontal)
+            .padding([.vertical, .horizontal])
             deckBody
-                .padding(.vertical)
+        }
+        .navigationTitle(viewModel.themeName())
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    startGame()
+                } label: {
+                    Text("New game").font(.title)
+                }
+            }
         }
     }
     
     var gameBody: some View {
-        VStack {
-            HStack {
-                Button {
-                    startGame()
-                } label: {
-                    Text("New game")
-                        .font(.title)
+        VStack (alignment: .leading) {
+            Text("Score: \(viewModel.score)")
+                .font(.title)
+                .padding(.horizontal)
+            VStack {
+                AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
+                    renderCard(for: card)
                 }
+                .foregroundColor(viewModel.theme.color)
                 Spacer()
-                Text("Score: \(viewModel.score)")
             }
-            AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
-                renderCard(for: card)
-            }
-            .foregroundColor(viewModel.theme.color)
-            Spacer()
         }
     }
     
@@ -140,6 +138,6 @@ struct MemorizeView_Previews: PreviewProvider {
         let theme = ThemeStore().themes.first!
         let game = EmojiMemoryGameViewModel(theme: theme)
         game.choose(game.cards.first!)
-        return MemorizeView(theme: theme)
+        return MemorizeView(viewModel: EmojiMemoryGameViewModel(theme: theme))
     }
 }

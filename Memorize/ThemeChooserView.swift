@@ -22,13 +22,12 @@ struct ThemeChooserView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(themeStore.themes, id: \.self) { theme in
-                    NavigationLink(destination: MemorizeView(theme: theme)) {
+                ForEach(themeStore.themes.indices, id: \.self) { index in
+                    let theme = themeStore.themes[index]
+                    NavigationLink(destination: MemorizeView(viewModel: EmojiMemoryGameViewModel(theme: theme))) {
                         VStack(alignment: .leading) {
-                            Text(theme.name)
-                                .foregroundColor(theme.color)
-                            Text("\(theme.emojiSet)")
-                                .lineLimit(1)
+                            Text(theme.name).foregroundColor(theme.color)
+                            Text("\(theme.emojiSet)").lineLimit(1)
                         }
                     }
                     .gesture(editMode == .active ? tap(theme) : nil)
@@ -71,7 +70,8 @@ struct ThemeChooserView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+        let themeStore: ThemeStore = ThemeStore()
         ThemeChooserView()
-            .environmentObject(ThemeStore())
+            .environmentObject(themeStore)
     }
 }

@@ -18,6 +18,10 @@ class EmojiMemoryGameViewModel: ObservableObject {
     @Published var theme: Theme
     @Published var model: MemoryGame<String>
     
+    var themeName: String {
+        get { theme.name }
+    }
+    
     var score: Int {
         get {
             model.score
@@ -32,8 +36,7 @@ class EmojiMemoryGameViewModel: ObservableObject {
     }
     
     func initNewCollection() {
-        self.theme = ThemeStore().themes.first!
-        self.model = EmojiMemoryGameViewModel.createMemoryGame(theme)
+        self.model = EmojiMemoryGameViewModel.createMemoryGame(self.theme)
     }
     
     private static func createMemoryGame(_ theme: Theme) -> MemoryGame<String> {

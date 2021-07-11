@@ -44,7 +44,7 @@ struct ThemeEditor: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    // TODO Store theme
+                    themeToEdit.numPairCards = themeToEdit.emojiSet.count
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Done")
