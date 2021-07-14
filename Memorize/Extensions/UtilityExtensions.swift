@@ -22,7 +22,7 @@ extension Collection where Element: Identifiable {
 
 extension Theme {
     func isEmpty() -> Bool {
-        return self.name == "" && self.emojiSet == ""
+        return self.name == "" && self.emojiSet == "👍👎"
     }
 }
 

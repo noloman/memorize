@@ -119,7 +119,7 @@ struct MemorizeView: View {
     private func startGame() {
         withAnimation {
             dealt = []
-            viewModel.initNewCollection()
+            viewModel.resetGame()
         }
     }
     
@@ -136,8 +136,8 @@ struct MemorizeView: View {
 struct MemorizeView_Previews: PreviewProvider {
     static var previews: some View {
         let theme = ThemeStore().themes.first!
-        let game = EmojiMemoryGameViewModel(theme: theme)
+        let game = EmojiMemoryGameViewModel(with: theme)
         game.choose(game.cards.first!)
-        return MemorizeView(viewModel: EmojiMemoryGameViewModel(theme: theme))
+        return MemorizeView(viewModel: game)
     }
 }

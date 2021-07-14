@@ -31,7 +31,7 @@ class ThemeStore: ObservableObject {
         if let emojis = emojis {
             theme = Theme(id: unique, name: name, emojiSet: emojis, color: color, numPairCards: emojis.count)
         } else {
-            theme = Theme(id: unique, name: name, emojiSet: "", color: color, numPairCards: 0)
+            theme = Theme(id: unique, name: name, emojiSet: "👍👎", color: color, numPairCards: 2)
         }
         let safeIndex = min(max(index, 0), themes.count)
         themes.insert(theme, at: safeIndex)

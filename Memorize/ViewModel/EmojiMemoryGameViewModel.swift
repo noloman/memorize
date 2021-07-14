@@ -15,32 +15,21 @@ class EmojiMemoryGameViewModel: ObservableObject {
         return model.cards
     }
     
-    @Published var theme: Theme
-    @Published var model: MemoryGame<String>
+    private(set) var theme: Theme
+    @Published private var model: MemoryGame<String>
     
     var themeName: String {
         get { theme.name }
     }
     
     var score: Int {
-        get {
-            model.score
-        }
+        get { model.score }
     }
     
-    init(theme: Theme) {
+    // MARK: - init
+    init(with theme: Theme) {
         self.theme = theme
-        self.model = MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
-            return String(theme.emojiSet[pairIndex])
-        }
-    }
-    
-    func initNewCollection() {
-        self.model = EmojiMemoryGameViewModel.createMemoryGame(self.theme)
-    }
-    
-    private static func createMemoryGame(_ theme: Theme) -> MemoryGame<String> {
-        return MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
+        model = MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
             return String(theme.emojiSet[pairIndex])
         }
     }
@@ -52,5 +41,11 @@ class EmojiMemoryGameViewModel: ObservableObject {
     
     func shuffle() {
         model.shuffle()
+    }
+    
+    func resetGame() {
+        model = MemoryGame<String>(numberOfPairOfCards: theme.numPairCards) { pairIndex in
+            return String(theme.emojiSet[pairIndex])
+        }
     }
 }
