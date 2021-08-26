@@ -19,4 +19,4 @@
 12. [ ] In the theme editor, allow the user to edit the name of the theme, to add emoji to the theme, to remove emoji from the theme, to specify how many cards are in the theme and to specify the color of the theme.
 13. [ ] The themes must be persistent (i.e. relaunching your app should not cause all the theme editing you’ve done to be lost).
 14. [ ] Your UI should work and look nice on both iPhone and iPad.
-15. Get your application work on a physical iOS device of your choice
+15. [ ] Get your application work on a physical iOS device of your choice
