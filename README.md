@@ -1,37 +1,26 @@
-## Welcome to GitHub Pages
+# Emoji Memorize Game 👾
+###### This game is the result of following the Stanford CS193p - Developing apps for iOS using SwiftUI course along with its assignments.
 
-You can use the [editor on GitHub](https://github.com/noloman/memorize/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+[![GitHub license](https://img.shields.io/github/license/noloman/memorize)](https://github.com/noloman/memorize/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/noloman/memorize)](https://github.com/noloman/memorize/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/noloman/memorize)](https://github.com/noloman/memorize/network)
+[![visitors](https://visitor-badge.glitch.me/badge?page_id=noloman.memorize)](https://github.com/noloman)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Screenshots
 
-### Markdown
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/183264/131354301-9af19a97-5748-45c3-a0e3-cebde633d8b6.jpg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354300-1c1e3986-a53d-4c5a-8fb4-9145265e270c.jpg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354296-32e6259a-0d3b-42c5-b889-d6020bf8e269.jpg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354278-6abb2be7-6593-4043-b0d9-17fd129d0465.jpeg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354293-41ef3cdf-0f45-46e8-8c0e-e93771666156.jpg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354288-71f6fcae-0291-4927-a2c4-f658c8aef7c2.jpg" alt="" height="450"> &nbsp;&nbsp;
+  <img src="https://user-images.githubusercontent.com/183264/131354285-faaf6261-d0a9-40af-8271-41673dda57b0.jpeg" alt="" height="450"> &nbsp;&nbsp;
+</p>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/noloman/memorize/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+<br>
+<p align="center">
+  <a href="buymeacoffee.com/noloman">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="140">
+  </a>
+</p>
