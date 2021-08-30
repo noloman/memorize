@@ -5,6 +5,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/noloman/memorize)](https://github.com/noloman/memorize/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/noloman/memorize)](https://github.com/noloman/memorize/network)
 [![visitors](https://visitor-badge.glitch.me/badge?page_id=noloman.memorize)](https://github.com/noloman)
+![Twitter Follow](https://img.shields.io/twitter/follow/noloman?style=social)
 
 ## Screenshots
 
